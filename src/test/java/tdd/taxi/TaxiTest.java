@@ -13,27 +13,37 @@ public class TaxiTest {
 
     @Test
     public void should_be_0p8yuan_when_distance_is_1km() {
-        verifyCalculate(1, 0.8);
+        verifyCalculate(0, 1, 0.8);
     }
 
     @Test
     public void should_be_6p4yuan_when_distance_is_8km() {
-        verifyCalculate(8, 6.4);
+        verifyCalculate(0, 8, 6.4);
     }
 
     @Test
     public void should_be_6p4yuan_when_distance_is_9km() {
-        verifyCalculate(9, 7.6);
+        verifyCalculate(0, 9, 7.6);
     }
 
     @Test
     public void should_be_6p4yuan_when_distance_is_10km() {
-        verifyCalculate(10, 8.8);
+        verifyCalculate(0, 10, 8.8);
     }
 
-    private void verifyCalculate(int distance, double expected) {
+    @Test
+    public void should_be_1p05yuan_when_distance_is_8km_and_wait_for_2_minute() {
+        verifyCalculate(2, 8, 6.9);
+    }
+
+    @Test
+    public void should_be_1p05yuan_when_distance_is_9km_and_wait_for_2_minute() {
+        verifyCalculate(2, 9, 8.1);
+    }
+
+    private void verifyCalculate(int waitingTime, int distance, double expected) {
         final Taxi taxi = new Taxi();
-        double actual = taxi.calculate(distance);
+        double actual = taxi.calculate(waitingTime, distance);
         assertEquals(expected, actual, DELTA);
     }
 }
